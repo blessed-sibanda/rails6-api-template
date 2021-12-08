@@ -38,6 +38,8 @@ run "cp rails-auth-api/config/routes.rb config"
 run "rm -rf app"
 run "cp rails-auth-api/app app -r"
 
+run "cp rails-auth-api/'thunder-collection_Rails Auth API.json' thunder-collection_API.json"
+
 run "rm -rf rails-auth-api"
 
 environment 'config.action_mailer.default_url_options = {host: "http://localhost", port: 3000}', env: "development"
