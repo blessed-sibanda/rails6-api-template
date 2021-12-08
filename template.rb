@@ -39,7 +39,7 @@ environment 'config.action_mailer.default_url_options = {host: "example.com", po
 
 run "rake haml:erb2haml"
 
-rails_command "db:create", , abort_on_failure: true
+rails_command "db:create", abort_on_failure: true
 rails_command "db:migrate", abort_on_failure: true
 
 after_bundle do
