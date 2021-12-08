@@ -20,30 +20,30 @@ gem_group :test do
   gem "email_spec", "~> 2.2.0"
 end
 
+rails_command "g rspec:install"
+run "rm -rf spec"
+
 git clone: "https://github.com/blessed-sibanda/rails-auth-api.git"
 
 run "cp rails-auth-api/db/migrate db/migrate -r"
 
-run "mkdir spec"
 run "cp rails-auth-api/spec spec -r"
 
 run "rm -rf config/initializers"
 run "cp rails-auth-api/config/initializers config/initializers -r"
 
-run "rm -rf app/controllers"
-run "cp rails-auth-api/app/controllers app/controllers -r"
+run "rm config/routes.rb"
+run "cp rails-auth-api/config/routes.rb config"
+
+run "rm -rf app"
+run "cp rails-auth-api/app app -r"
+
+run "rm -rf rails-auth-api"
 
 environment 'config.action_mailer.default_url_options = {host: "http://localhost", port: 3000}', env: "development"
 
 environment 'config.action_mailer.default_url_options = {host: "example.com", port: 3000}', env: "test"
 
-run "rake haml:erb2haml"
-
-rails_command "db:create", abort_on_failure: true
-rails_command "db:migrate", abort_on_failure: true
-
-after_bundle do
-  git :init
-  git add: "."
-  git commit: %Q{ -m 'init project' }
-end
+git :init
+git add: "."
+git commit: %Q{ -m 'init project' }
